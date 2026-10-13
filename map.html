@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#16324a" name="theme-color"/>
+<meta content="OpenStreetMapを使い、西条の7つの酒蔵・くぐり門・JR西条駅を太く白い道と見やすい青色ルートで案内する観光マップです。7つの酒蔵・くぐり門・JR西条駅・主要周辺スポットの間を青い徒歩ルートで案内します。" name="description"/>
+<title>西条酒蔵マップ</title>
+<link crossorigin="" href="https://unpkg.com" rel="preconnect"/>
+<link crossorigin="" href="https://tiles.openfreemap.org" rel="preconnect"/>
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"/>
+<link href="map.css?v=55" rel="stylesheet"/>
+
+<script defer="" src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script defer="" src="map.js?v=55"></script>
+
+<meta content="light dark" name="color-scheme"/>
+
+<style id="github-pages-v70-css">
+
+/* ===== GitHub Pages V70 bundled CSS ===== */
+:root{--v64-navy:#17324d;--v64-navy-strong:#0b253d;--v64-cream:#f7f5ef;--v64-white:#fff;--v64-gold:#b85c00;--v64-text:#182a38;--v64-muted:#4c5d69;--v64-border:#c5cfd5;--v64-focus:#ffbf00;--v64-shadow:0 14px 40px rgba(11,37,61,.13);--v64-radius:1rem}
+html{scroll-padding-top:6rem}body{color:var(--v64-text);background:var(--v64-cream)}
+.v64-header{position:sticky!important;top:0!important;z-index:120!important;isolation:isolate;padding:10px clamp(12px,2.5vw,32px)!important;background:rgba(247,245,239,.94)!important;border-bottom:1px solid rgba(11,37,61,.12)!important;backdrop-filter:blur(16px)}
+.v64-brand{min-height:52px!important;background:transparent!important;border:0!important;box-shadow:none!important}
+.v64-brand:focus-visible,.v64-main-nav a:focus-visible,.v64-main-nav button:focus-visible,.v64-breadcrumb a:focus-visible,.v64-back-top:focus-visible{outline:4px solid var(--v64-focus)!important;outline-offset:4px!important}
+.v64-main-nav{gap:7px!important}.v64-main-nav .round-nav-btn{min-width:52px!important;min-height:48px!important;border:1px solid var(--v64-border)!important;background:#fff!important;color:var(--v64-navy-strong)!important;border-radius:999px!important}.v64-main-nav .round-nav-btn.is-active{background:var(--v64-navy)!important;color:#fff!important;border-color:var(--v64-navy)!important}.v64-main-nav .v52-nav-copy small{color:inherit!important;opacity:.82}
+.v64-menu-toggle{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-width:48px;min-height:48px;padding:0 14px;border:1px solid var(--v64-navy);border-radius:999px;background:var(--v64-navy);color:#fff;font-weight:800;cursor:pointer}.v64-menu-icon{display:grid;gap:4px}.v64-menu-icon i{display:block;width:18px;height:2px;background:currentColor;border-radius:2px}
+.v64-breadcrumb-wrap{position:relative;z-index:40;background:var(--v64-cream);border-bottom:1px solid rgba(11,37,61,.08)}.v64-breadcrumb{max-width:1200px;margin:auto;padding:10px clamp(16px,4vw,40px)}.v64-breadcrumb ol{display:flex;flex-wrap:wrap;gap:0;margin:0;padding:0;list-style:none;font-size:.875rem;line-height:1.5}.v64-breadcrumb li{display:flex;align-items:center;min-height:32px;color:var(--v64-muted)}.v64-breadcrumb li+li:before{content:"/";margin:0 .55rem;color:#71808a}.v64-breadcrumb a{color:var(--v64-navy);font-weight:800;text-decoration:underline;text-underline-offset:3px}.v64-breadcrumb [aria-current=page]{font-weight:700;color:var(--v64-text)}
+.v64-back-top{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:140;display:grid;place-items:center;gap:1px;width:56px;height:56px;padding:0;border:2px solid #fff;border-radius:50%;background:var(--v64-navy);color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.24);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .2s ease,transform .2s ease}.v64-back-top.is-visible{opacity:1;transform:none;pointer-events:auto}.v64-back-top span:first-child{font-size:1.25rem;line-height:1}.v64-back-top-label{font-size:.55rem;letter-spacing:.12em;font-weight:900}.v64-back-top:hover{background:var(--v64-navy-strong)}
+.site-menu.v45-menu{z-index:300!important}.site-menu.v45-menu.open{display:block}.menu-open{overflow:hidden}
+.v64-skip{position:fixed;left:12px;top:12px;z-index:500;transform:translateY(-150%);padding:.75rem 1rem;border-radius:.6rem;background:#fff;color:var(--v64-navy-strong);font-weight:900;box-shadow:var(--v64-shadow)}.v64-skip:focus{transform:none}
+.v64-accessible-panel{color:var(--v64-text);background:#fff;border:1px solid var(--v64-border);border-radius:var(--v64-radius);box-shadow:var(--v64-shadow)}.v64-accessible-panel a{color:var(--v64-navy-strong);text-decoration-thickness:2px;text-underline-offset:3px}.v64-accessible-panel button{min-width:44px;min-height:44px}
+@media(max-width:900px){.v64-main-nav .v52-nav-copy{display:none}.v64-main-nav .round-nav-btn{width:48px}.v64-menu-toggle{font-size:.8rem}.v64-brand span b{font-size:.85rem}}
+@media(max-width:640px){.v64-header{padding:8px 10px!important}.v64-main-nav{gap:4px!important}.v64-main-nav .v52-nav-link:nth-child(n+4){display:none}.v64-menu-toggle{min-width:48px;padding:0 11px}.v64-brand{max-width:48vw}.v64-brand img{width:38px!important;height:38px!important}.v64-brand span{overflow:hidden}.v64-brand span b,.v64-brand span small{white-space:nowrap}.v64-breadcrumb{padding:8px 14px}.v64-breadcrumb ol{font-size:.8rem}.v64-back-top{width:52px;height:52px}}
+@media(min-width:901px){.v64-main-nav .v52-nav-link{min-width:92px!important}.v64-main-nav .v52-nav-map{min-width:110px!important}}
+@media(prefers-reduced-motion:reduce){.v64-back-top{transition:none!important}html{scroll-behavior:auto!important}.v64-menu-toggle,.v64-main-nav .round-nav-btn{transition:none!important}}
+
+.v64-map-breadcrumb{position:fixed;z-index:80;top:12px;left:12px;padding:8px 12px;border:1px solid rgba(11,37,61,.16);border-radius:999px;background:rgba(255,255,255,.95);box-shadow:0 8px 24px rgba(0,0,0,.12);backdrop-filter:blur(10px)}
+.v64-map-breadcrumb ol{display:flex;gap:.55rem;align-items:center;margin:0;padding:0;list-style:none;font-size:.82rem;font-weight:800;color:var(--v64-text)}
+.v64-map-breadcrumb li+li:before{content:"/";margin-right:.55rem;color:var(--v64-muted)}
+.v64-map-breadcrumb a{color:var(--v64-navy-strong);text-decoration:underline;text-underline-offset:3px}
+.v64-back-top.is-map{opacity:1;transform:none;pointer-events:auto;right:16px;bottom:16px}
+@media(max-width:720px){.v64-map-breadcrumb{top:8px;left:8px;font-size:.75rem}.v64-back-top.is-map{right:10px;bottom:10px}}
+
+
+@media (max-width:767px){
+
+/* =========================================================
+   V69 — DEDICATED SMARTPHONE UI
+   Calm utility UI + cinematic hero. 767px and below.
+   ========================================================= */
+@media (max-width:767px){
+  :root{--m-header:64px;--m-bottom:76px;--m-gap:14px;--m-touch:48px}
+  html{scroll-padding-top:calc(var(--m-header) + 12px);}
+  body{padding-bottom:calc(var(--m-bottom) + env(safe-area-inset-bottom));}
+  .v64-header{height:var(--m-header)!important;min-height:var(--m-header)!important;padding:7px 12px!important;}
+  .v64-header .v64-brand{min-height:48px!important;max-width:calc(100vw - 76px);overflow:hidden}
+  .v64-header .v64-brand img{width:40px!important;height:40px!important;border-radius:12px!important}
+  .v64-header .v64-brand b{font-size:13px!important;white-space:nowrap}
+  .v64-header .v64-brand small{font-size:9px!important;white-space:nowrap}
+  .v64-header .v64-main-nav .round-nav-btn{display:none!important}
+  .v64-menu-toggle{min-width:48px!important;min-height:48px!important;padding:5px!important;border-radius:16px!important}
+  .v64-menu-toggle span:last-child{font-size:10px!important}
+
+  .v69-mobile-nav{position:fixed;left:0;right:0;bottom:0;z-index:140;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid rgba(16,37,62,.14);box-shadow:0 -8px 30px rgba(16,37,62,.10);backdrop-filter:blur(18px);}
+  .v69-mobile-nav a,.v69-mobile-nav button{appearance:none;border:0;background:transparent;color:#17324d;text-decoration:none;min-height:58px;min-width:44px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .v69-mobile-nav a:active,.v69-mobile-nav button:active{transform:scale(.96);}
+  .v69-mobile-nav a.is-active{background:#e7f4f6;font-weight:700}
+  .v69-mobile-nav svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .v69-mobile-nav .nav-label{font-size:10px;line-height:1;letter-spacing:.03em}
+  .v69-mobile-nav a:focus-visible,.v69-mobile-nav button:focus-visible{outline:3px solid #ffbf00;outline-offset:2px}
+
+  .v64-breadcrumb-wrap{padding:9px 16px 0!important}
+  .v64-breadcrumb{font-size:12px!important;overflow:auto;white-space:nowrap}
+  .v64-back-top{width:64px!important;height:64px!important;right:14px!important;bottom:calc(var(--m-bottom) + 16px + env(safe-area-inset-bottom))!important;border-radius:20px!important}
+  .v64-back-top-label{font-size:10px!important}
+
+  .site-menu{z-index:150!important}
+  .site-menu-panel{padding:18px!important;padding-bottom:calc(24px + env(safe-area-inset-bottom))!important;border-radius:0!important;min-height:100dvh!important;overflow:auto}
+  .v45-menu-primary{grid-template-columns:1fr!important}
+  .menu-grid{grid-template-columns:1fr 1fr!important;gap:9px!important}
+  .menu-grid a{min-height:96px!important}
+  .menu-settings{min-height:52px!important}
+
+  .page-hero{padding:76px 16px 22px!important}
+  .page-hero h1{font-size:clamp(42px,13vw,62px)!important;line-height:.95}
+  .hero-art{height:46vh!important;min-height:260px!important;border-radius:22px!important}
+  .brewery-list,.spot-list{padding:12px 16px calc(40px + var(--m-bottom))!important}
+  .brewery-item{display:block!important;padding:22px 0!important}
+  .brewery-photo{min-height:220px!important;border-radius:20px!important}
+  .brewery-photo img{min-height:220px!important;object-fit:cover}
+  .brewery-copy{margin-top:14px!important}
+  .brewery-copy a,.brewery-copy button{min-height:48px}
+
+  /* Products: one strong card per row, image first */
+  .product-grid,.products-grid,.product-list{grid-template-columns:1fr!important;display:grid!important;gap:16px!important}
+  .product-card{display:flex!important;flex-direction:column!important;min-width:0!important;border-radius:22px!important;overflow:hidden}
+  .product-card img,.product-image,.product-card .product-media{width:100%!important;aspect-ratio:1/1!important;object-fit:contain!important;max-height:none!important}
+  .product-card .product-copy{padding:16px!important}
+  .product-card a{min-height:48px}
+
+  /* prevent fixed controls from obscuring map/content */
+  .map-page{padding-bottom:0!important}
+  @supports (height:100dvh){.map-page #map{min-height:calc(100dvh - var(--m-header))}}
+}
+@media (prefers-reduced-motion:reduce){
+  .v69-mobile-nav a:active,.v69-mobile-nav button:active{transform:none}
+}
+
+}
+
+/* V71 map UI palette: high contrast text on solid controls */
+:root{
+  --v64-navy:#073c5a;--v64-navy-strong:#052a42;--v64-cream:#f3fafb;--v64-white:#ffffff;
+  --v64-gold:#765917;--v64-text:#102d42;--v64-muted:#415b6a;--v64-border:#b7cbd3;
+  --v64-focus:#704200;--v64-shadow:0 12px 32px rgba(10,47,72,.14);
+  --ink:#102d42;--muted:#415b6a;--paper:rgba(255,255,255,.97);--paper-solid:#ffffff;
+  --border:#163d54;--accent:#006b88;--accent-dark:#00485d;--accent-soft:#e2f4f7;
+  --gate:#075f58;--station:#075ca8;--station-dark:#073c5a;--focus:#704200;--road:#ffffff;
+}
+.v64-breadcrumb,.v64-back-top,.v64-accessible-panel{color:var(--v64-text)!important}
+.v64-breadcrumb{background:rgba(255,255,255,.98)!important}
+.v64-breadcrumb a{color:var(--v64-navy-strong)!important}
+.v64-breadcrumb [aria-current=page]{color:var(--v64-text)!important}
+.v64-back-top{background:var(--v64-navy)!important;color:#ffffff!important}
+.v64-accessible-panel{background:#ffffff!important;color:var(--v64-text)!important}
+.v64-accessible-panel a{color:var(--v64-navy-strong)!important}
+.v64-skip{background:#ffffff!important;color:var(--v64-navy-strong)!important}
+.v64-header{background:rgba(243,250,251,.97)!important}
+.v64-main-nav .round-nav-btn{background:#ffffff!important;color:var(--v64-navy-strong)!important;border-color:var(--v64-border)!important}
+.v64-main-nav .round-nav-btn.is-active,.v64-menu-toggle{background:var(--v64-navy)!important;color:#ffffff!important;border-color:var(--v64-navy)!important}
+.map-page :focus-visible{outline:3px solid #704200!important;outline-offset:3px!important;box-shadow:0 0 0 3px #ffffff,0 0 0 6px #704200!important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
+</style>
+  <link rel="stylesheet" href="compact-ui.css?v=72">
+  <link rel="stylesheet" href="corporate-simple.css?v=1">
+</head>
+<body class="map-page map-only">
+<nav class="v64-map-breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">西条酒蔵めぐり</a></li><li aria-current="page">マップ</li></ol></nav>
+<a class="skip-link" data-i18n="skipLink" href="#mainControls">地図の操作へ</a>
+<main aria-label="西条酒蔵通り。7つの酒蔵、くぐり門、JR西条駅を表示し、指定エリアの外へドラッグできない地図" data-i18n-aria="mapAria" id="map"></main>
+<!-- 選択中の青い案内道だけを、MapLibreの3D建物より上に必ず描く最前面オーバーレイ。 -->
+<!-- 遠景を空と地平線のように見せる。境界や透明な壁は描画しません。 -->
+<div aria-hidden="true" class="horizon-haze"></div>
+<div aria-hidden="true" class="soft-vignette"></div>
+<header aria-label="サイト名" class="app-header">
+<img alt="" aria-hidden="true" class="brand-logo-map" decoding="async" height="48" src="assets/images/brand/saijo-logo.webp" width="48"/>
+<div class="brand-copy"><h1>西条酒蔵マップ</h1></div>
+</header>
+<nav aria-label="地図操作" class="map-controls" id="mainControls">
+<button class="control-button primary" id="locationButton" type="button"><span data-i18n="currentLocation">現在地</span></button>
+<button aria-controls="placesPanel" aria-expanded="false" class="control-button" id="placesButton" type="button"><span data-i18n="places">場所</span></button>
+<button aria-controls="routePlanner" aria-expanded="false" class="control-button route-control" id="routePlannerButton" type="button"><span data-i18n="routePlannerOpen">ルート</span></button>
+<details class="map-more-controls">
+  <summary aria-label="その他の地図操作">その他</summary>
+  <div class="map-more-panel">
+    <button class="control-button" id="overviewButton" type="button"><span data-i18n="overview">地図全体</span></button>
+    <button class="control-button station-control" id="stationButton" type="button"><span data-i18n="saijoStation">西条駅</span></button>
+    <button aria-controls="udPanel" aria-expanded="false" class="control-button ud-control" id="udButton" type="button"><span data-i18n="udSettings">設定</span></button>
+  </div>
+</details>
+</nav><div class="map-toast" id="mapToast" role="status" aria-live="polite" aria-atomic="true"></div><div aria-label="地図の記号" class="map-category-legend"><span class="legend-brewery"><i>1</i>酒蔵</span><span class="legend-spot"><i>案</i>周辺スポット</span><span class="legend-shopping"><i>買</i>買い物</span></div>
+<aside aria-hidden="true" class="places-panel" id="placesPanel" tabindex="-1">
+<div aria-hidden="true" class="panel-grip"></div>
+<header class="panel-header">
+<div>
+<p data-i18n="chooseDestination">行き先を選ぶ</p>
+<h2 data-i18n="placesHeading">酒蔵・駅・周辺スポット</h2>
+</div>
+<button aria-label="酒蔵一覧を閉じる" class="close-button" data-i18n-aria="closePlaces" id="closePlacesButton" type="button">×</button>
+</header>
+<p class="panel-help" data-i18n="placesHelp">酒蔵や駅、周辺スポットを選べます。</p>
+<div class="map-list-tools" aria-label="地図の補助機能">
+  <button type="button" id="v63TextMapButton" aria-expanded="false" aria-controls="v63TextMapPanel" class="map-text-view-button">地図を文章で見る</button>
+  <details class="map-filter-details">
+    <summary>絞り込み</summary>
+    <div class="v63-filter-grid" role="group" aria-label="施設の絞り込み">
+      <button type="button" class="v63-filter" data-v63-filter="all" aria-pressed="true">すべて</button>
+      <button type="button" class="v63-filter" data-v63-filter="wheelchair" aria-pressed="false">車いす対応</button>
+      <button type="button" class="v63-filter" data-v63-filter="visual" aria-pressed="false">視覚サポート</button>
+      <button type="button" class="v63-filter" data-v63-filter="family" aria-pressed="false">家族向け</button>
+    </div>
+  </details>
+</div>
+
+<div class="places-list" id="placesList"></div>
+</aside>
+<aside aria-hidden="true" aria-labelledby="udPanelTitle" class="ud-panel" id="udPanel" tabindex="-1">
+<div aria-hidden="true" class="panel-grip"></div>
+<header class="panel-header">
+<div>
+<p data-i18n="udPanelKicker">設定</p>
+<h2 data-i18n="udPanelTitle" id="udPanelTitle">表示設定</h2>
+</div>
+<button aria-label="表示設定を閉じる" class="close-button" data-i18n-aria="closeUd" id="closeUdButton" type="button">×</button>
+</header>
+<div class="ud-setting-group">
+<label data-i18n="language" for="languageSelect">言語</label>
+<select id="languageSelect">
+<option value="ja">日本語</option>
+<option value="jaEasy">やさしい日本語</option>
+<option value="en">English</option>
+<option value="zh">简体中文</option>
+<option value="ko">한국어</option>
+<option value="pt">Português</option>
+</select>
+</div>
+<fieldset class="ud-setting-group text-size-setting">
+<legend data-i18n="textSize">文字サイズ</legend>
+<div aria-label="文字サイズ" class="segmented-control" role="group">
+<button data-i18n="textNormal" data-text-size="normal" type="button">標準</button>
+<button data-i18n="textLarge" data-text-size="large" type="button">大きい</button>
+<button data-i18n="textXLarge" data-text-size="xlarge" type="button">特大</button>
+</div>
+</fieldset>
+<div class="ud-toggle-list">
+<label class="ud-toggle"><span><strong data-i18n="highContrast">高コントラスト</strong><small data-i18n="highContrastHelp">文字とボタンを見やすくします</small></span><input id="highContrastToggle" type="checkbox"/><i aria-hidden="true"></i></label>
+<label class="ud-toggle"><span><strong data-i18n="reduceMotion">動きを減らす</strong><small data-i18n="reduceMotionHelp">地図の動きを少なくします</small></span><input id="reduceMotionToggle" type="checkbox"/><i aria-hidden="true"></i></label>
+<label class="ud-toggle"><span><strong data-i18n="flatMap">真上から見る</strong><small data-i18n="flatMapHelp">地図を真上から表示します</small></span><input id="flatMapToggle" type="checkbox"/><i aria-hidden="true"></i></label>
+<label class="ud-toggle"><span><strong data-i18n="hidePhotos">写真を減らす</strong><small data-i18n="hidePhotosHelp">写真を減らして場所名を見やすくします</small></span><input id="hidePhotosToggle" type="checkbox"/><i aria-hidden="true"></i></label>
+<label class="ud-toggle"><span><strong data-i18n="autoAudio">場所を選ぶと音声で説明</strong><small data-i18n="autoAudioHelp">場所を選ぶと説明を音声で聞けます</small></span><input id="autoAudioToggle" type="checkbox"/><i aria-hidden="true"></i></label>
+</div>
+<section aria-labelledby="mapSummaryTitle" class="map-text-summary">
+<h3 data-i18n="mapSummaryTitle" id="mapSummaryTitle">地図の場所一覧</h3>
+<p data-i18n="mapSummary" id="mapTextSummary">JR西条駅は地図の北側です。酒蔵は駅の南側に東西へ並び、くぐり門は中央より東側にあります。</p>
+<button data-i18n="announceMap" id="announceMapButton" type="button">地図の説明を読み上げる</button>
+</section>
+<details class="keyboard-help">
+<summary data-i18n="keyboardTitle">キーボード操作</summary>
+<p data-i18n="keyboardHelp">Tabでボタン移動、＋と－で拡大縮小、0で全体、Lで現在地、Uで設定、Escでパネルを閉じます。</p>
+</details>
+<button class="reset-ud-button" data-i18n="resetSettings" id="resetUdButton" type="button">設定を初期状態に戻す</button>
+</aside>
+<aside aria-hidden="true" aria-labelledby="routePlannerTitle" class="route-planner-panel" id="routePlanner" tabindex="-1">
+<header class="route-planner-header">
+<div>
+<p data-i18n="routePlannerKicker">徒歩ルート</p>
+<h2 data-i18n="routePlannerTitle" id="routePlannerTitle">場所から場所へ案内</h2>
+</div>
+<button aria-label="ルートを閉じる" class="close-button" data-i18n-aria="routePlannerClose" id="closeRoutePlannerButton" type="button">×</button>
+</header>
+<p class="route-planner-help" data-i18n="routePlannerHelp">出発地と目的地を選んで、徒歩ルートを表示します。</p>
+<div class="route-planner-grid">
+<label class="route-field">
+<span data-i18n="routeOrigin">出発地</span>
+<select id="routeStartSelect"></select>
+</label>
+<button aria-label="出発地と目的地を入れ替える" class="route-swap-button" data-i18n-aria="routeSwap" id="swapRouteButton" type="button">⇄</button>
+<label class="route-field">
+<span data-i18n="routeDestination">目的地</span>
+<select id="routeDestinationSelect"></select>
+</label>
+</div>
+<div class="route-planner-actions">
+<button class="route-show-button" data-i18n="routeShow" id="showPlannerRouteButton" type="button">ルートを表示</button>
+<button class="route-clear-button" data-i18n="routeClear" id="clearPlannerRouteButton" type="button">ルートを消す</button>
+</div>
+<p aria-live="polite" class="route-planner-result" id="routePlannerResult">出発地と目的地を選んでください。</p>
+<div aria-label="ルート表示の凡例" class="route-planner-legend">
+<span aria-hidden="true" class="route-line-sample"></span>
+<span data-i18n="routeLegend">青い線が徒歩ルートです</span>
+</div>
+</aside>
+<div aria-atomic="true" aria-live="assertive" class="sr-only" id="screenReaderStatus"></div>
+<section aria-live="polite" class="detail-card" hidden="" id="detailCard">
+<button aria-label="詳細を閉じる" class="close-button detail-close" data-i18n-aria="closeDetail" id="closeDetailButton" type="button">×</button>
+<div class="detail-heading">
+<span aria-hidden="true" class="detail-number" id="detailNumber">1</span>
+<div>
+<p class="detail-type" id="detailType">酒蔵</p>
+<h2 id="detailName">酒蔵名</h2>
+</div>
+</div>
+<img alt="" class="detail-image" decoding="async" hidden="" id="detailImage">
+<p class="detail-description" id="detailDescription"></p>
+<div class="distance-row">
+<span aria-hidden="true">🚶</span>
+<span data-i18n="fromCurrent">現在地から</span>
+<strong id="detailDistance">未取得</strong>
+</div>
+<div aria-live="polite" class="route-guide">
+<p data-i18n="routeSummaryDefault" id="routeSummary">通常の道は太い白色です。2つの拠点を選ぶと、その白い道の上だけを青色でなぞって案内します</p>
+<div class="route-actions">
+<button data-i18n-button="routeStartHere" id="routeFromButton" type="button"><span aria-hidden="true">●</span> ここから出発</button>
+<button data-i18n-button="routeGuide" id="routeToButton" type="button"><span aria-hidden="true">➤</span> 青い道で案内</button>
+<button data-i18n-button="routeClear" disabled="" id="clearRouteButton" type="button"><span aria-hidden="true">×</span> ルートを消す</button>
+</div>
+</div>
+<div class="detail-actions">
+<button data-i18n-button="viewOnMap" id="focusPlaceButton" type="button"><span aria-hidden="true">⌖</span> 地図で見る</button>
+<button data-i18n-button="playAudio" id="speakButton" type="button"><span aria-hidden="true">🔊</span> 音声で説明を聞く</button>
+<button data-i18n-button="stopAudio" id="stopSpeakButton" type="button"><span aria-hidden="true">■</span> 音声停止</button>
+<p class="voice-credit" data-i18n="voiceCredit">音声読み上げ</p>
+</div>
+</img></section>
+<section class="permission-card" hidden="" id="permissionCard" role="alert">
+<strong data-i18n="locationUnavailable">現在地を表示できません</strong>
+<p data-i18n="permissionHelp" id="permissionText">ブラウザの位置情報を許可してください。GPSはHTTPSまたはlocalhostで動作します。</p>
+<button data-i18n="retry" id="retryGpsButton" type="button">もう一度試す</button>
+</section>
+<noscript>地図を表示するにはJavaScriptを有効にしてください。</noscript>
+
+<aside id="v63TextMapPanel" class="v63-map-panel" aria-labelledby="v63TextMapTitle" hidden>
+  <header>
+    <div>
+      <p class="v63-kicker">地図の場所一覧</p>
+      <h2 id="v63TextMapTitle">地図の場所一覧</h2>
+      <p>地図の場所を一覧で確認できます。</p>
+    </div>
+    <button type="button" class="v63-close" id="v63CloseTextMap" aria-label="場所一覧を閉じる">×</button>
+  </header>
+<div class="v63-note">設備や利用条件は施設にご確認ください。</div>
+  <ul class="v63-facility-list" id="v63FacilityList" aria-live="polite"></ul>
+</aside>
+
+
+
+<nav class="v69-mobile-nav v69-map-mobile-nav" aria-label="モバイルナビゲーション"><a href="index.html"><span aria-hidden="true">⌂</span><span class="nav-label">ホーム</span></a><a href="map.html" class="is-active" aria-current="page"><span aria-hidden="true">⌖</span><span class="nav-label">地図</span></a><a href="breweries.html"><span aria-hidden="true">酒</span><span class="nav-label">酒蔵</span></a><a href="products.html"><span aria-hidden="true">瓶</span><span class="nav-label">商品</span></a><button type="button" onclick="document.querySelector('[data-menu-open],#mapMenuButton')?.click()"><span aria-hidden="true">☰</span><span class="nav-label">メニュー</span></button></nav><script id="github-pages-v70-js">
+
+
+/* ===== GitHub Pages V70 bundled JS ===== */
+(function(){
+  const reduce=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('DOMContentLoaded',()=>{
+    const main=document.querySelector('main');if(main&&!main.id)main.id='map-main';
+    const top=document.querySelector('[data-v64-map-top]');if(top){const update=()=>top.classList.toggle('is-visible',scrollY>250);addEventListener('scroll',update,{passive:true});update();top.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduce()?'auto':'smooth'}))}
+  });
+})();
+
+
+(() => {
+  'use strict';
+  const panel = document.getElementById('v63TextMapPanel');
+  const openBtn = document.getElementById('v63TextMapButton');
+  const closeBtn = document.getElementById('v63CloseTextMap');
+  const list = document.getElementById('v63FacilityList');
+  if (!panel || !openBtn || !list) return;
+
+  const facilities = [
+    {name:'JR西条駅', icon:'駅', cats:['wheelchair','family','visual'], meta:'駅・案内拠点', details:'エレベーター等の設備情報は現地案内・公式情報で確認してください。'},
+    {name:'東広島市観光案内所', icon:'案', cats:['wheelchair','visual','family'], meta:'案内・観光情報', details:'JR西条駅2階。利用可能な案内サービスは現地で確認してください。'},
+    {name:'くぐり門 ＆ 西条酒蔵通り観光案内所', icon:'案', cats:['visual','family'], meta:'案内・休憩', details:'酒蔵通りの観光案内拠点です。'},
+    {name:'くぐり門のトイレ', icon:'WC', cats:['wheelchair','family'], meta:'トイレ', details:'トイレがあります。設備や利用条件は現地でご確認ください。'},
+    {name:'くぐり門珈琲店', icon:'休', cats:['family'], meta:'休憩', details:'散策途中の休憩場所です。'},
+    {name:'東広島芸術文化ホールくらら', icon:'文', cats:['wheelchair','family','visual'], meta:'文化施設', details:'施設内設備は公式案内で確認してください。'},
+    {name:'東広島市立美術館', icon:'美', cats:['wheelchair','visual','family'], meta:'文化施設', details:'施設内設備は公式案内で確認してください。'},
+    {name:'ゆめタウン東広島', icon:'買', cats:['wheelchair','family'], meta:'買い物・食事', details:'館内設備は施設案内で確認してください。'}
+  ];
+
+  let active = 'all';
+  const label = {wheelchair:'車椅子',visual:'視覚サポート',family:'ファミリー'};
+
+  function render() {
+    const filtered = active === 'all' ? facilities : facilities.filter(x => x.cats.includes(active));
+    list.innerHTML = filtered.map(f => `
+      <li class="v63-facility-card">
+        <button type="button" aria-label="${f.name}。${f.meta}。${f.details}">
+          <span class="v63-facility-icon" aria-hidden="true">${f.icon}</span>
+          <span><span class="v63-facility-name">${f.name}</span><span class="v63-facility-meta">${f.meta}</span>
+          <span class="v63-info-tags">${f.cats.map(c => `<span class="v63-tag">${label[c]}</span>`).join('')}</span></span>
+        </button>
+      </li>`).join('');
+  }
+
+  function setFilter(value, group) {
+    active = value;
+    document.querySelectorAll('[data-v63-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v63Filter === value))); document.querySelectorAll('[data-v63-panel-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v63PanelFilter === value)));
+    render();
+  }
+
+  document.querySelectorAll('[data-v63-filter]').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.v63Filter, '')));
+  document.querySelectorAll('[data-v63-panel-filter]').forEach(b => b.addEventListener('click', () => setFilter(b.dataset.v63PanelFilter, 'panel-')));
+
+  function openPanel() {
+    panel.hidden = false; panel.classList.add('is-open'); openBtn.setAttribute('aria-expanded','true'); render();
+    setTimeout(() => closeBtn?.focus(), 0);
+  }
+  function closePanel() {
+    panel.classList.remove('is-open'); panel.hidden = true; openBtn.setAttribute('aria-expanded','false'); openBtn.focus();
+  }
+  openBtn.addEventListener('click', () => panel.hidden ? openPanel() : closePanel());
+  closeBtn?.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) closePanel(); });
+  render();
+})();
+
+</script>
+  <script src="compact-ui.js?v=72"></script>
+</body>
+</html>

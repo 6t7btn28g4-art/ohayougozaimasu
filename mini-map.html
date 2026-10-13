@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>西条 ルートミニマップ</title>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+
+<script defer src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+
+
+
+<style id="github-pages-v70-css">
+
+/* ===== GitHub Pages V70 bundled CSS ===== */
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;color:#10253e;background:#eaf0f3}
+*{box-sizing:border-box}
+html,body,#miniMap{width:100%;height:100%;margin:0}
+html,body{overflow:hidden;background:#eaf0f3}
+body{position:relative;isolation:isolate}
+#miniMap{position:absolute;inset:0}
+.maplibregl-map{background:#e8eef2}
+.maplibregl-canvas{outline:none}
+.maplibregl-control-container{display:none!important}
+.mini-marker{display:grid;place-items:center;min-width:28px;height:28px;padding:0 7px;border:3px solid #fff;border-radius:999px;background:#0a2f57;color:#fff;box-shadow:0 5px 16px rgba(10,47,87,.22);font-size:10px;font-weight:900;line-height:1;white-space:nowrap}
+.mini-marker.destination{background:#fff;color:#0a2f57;border-color:#0a2f57}
+.mini-marker.destination:after{content:"";position:absolute;bottom:-7px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid #0a2f57}
+.mini-route-key{position:absolute;z-index:3;left:8px;bottom:8px;display:flex;align-items:center;gap:6px;padding:5px 7px;border:1px solid rgba(16,37,62,.14);border-radius:999px;background:rgba(255,255,255,.9);box-shadow:0 4px 15px rgba(16,37,62,.12);pointer-events:none}
+.mini-route-key i{width:20px;height:4px;border-radius:999px;background:#006fbf;box-shadow:0 0 0 1px rgba(255,255,255,.95)}
+.mini-route-key span{font-size:7px;font-weight:900;letter-spacing:.12em}
+.mini-attrib{position:absolute;z-index:3;right:4px;bottom:3px;padding:2px 4px;border-radius:4px;background:rgba(255,255,255,.75);color:#52636c;font-size:7px;line-height:1;text-decoration:none}
+@media(max-width:420px){.mini-marker{min-width:24px;height:24px;padding:0 5px;border-width:2px;font-size:9px}.mini-route-key{left:5px;bottom:5px}.mini-attrib{font-size:6px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+body{background:#dfe7e4!important}.mini-route-key{border:1px solid rgba(23,39,43,.16)!important;border-radius:999px!important;background:rgba(251,250,246,.94)!important;color:#17272b!important;box-shadow:0 6px 16px rgba(23,39,43,.08)!important}.mini-route-key i{background:#315f78!important}.mini-attrib{background:rgba(251,250,246,.82)!important;color:#536266!important;border-radius:6px!important}
+
+
+/* V71 mini-map text and surfaces */
+:root{color:#102d42;background:#e7f5f8}
+html,body{background:#e7f5f8!important;color:#102d42}
+.mini-marker{background:#073c5a!important;color:#ffffff!important}
+.mini-marker.destination{background:#ffffff!important;color:#073c5a!important;border-color:#073c5a!important}
+.mini-marker.destination:after{border-top-color:#073c5a!important}
+.mini-route-key{background:rgba(255,255,255,.98)!important;color:#102d42!important;border-color:#b7cbd3!important}
+.mini-route-key span{font-size:10px!important;color:#102d42!important}
+.mini-route-key i{background:#075ca8!important}
+.mini-attrib{background:#ffffff!important;color:#415b6a!important;opacity:1!important;font-size:9px!important}
+</style>
+  <link rel="stylesheet" href="compact-ui.css?v=72">
+</head>
+<body>
+<main id="miniMap" aria-label="西条駅から目的地までの小さなルートマップ"></main>
+<div class="mini-route-key" aria-hidden="true"><i></i><span>ROUTE</span></div>
+<a class="mini-attrib" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>
+<script id="github-pages-v70-js">
+
+
+/* ===== GitHub Pages V70 bundled JS ===== */
+"use strict";
+(() => {
+  const STYLE = "https://tiles.openfreemap.org/styles/liberty";
+  const NODES = {
+    "saijo-station":[132.743606,34.431097], stationSouth:[132.743780,34.430730], centralWest:[132.744450,34.430520],
+    westA:[132.743050,34.430650], westB:[132.742180,34.430210], westC:[132.741350,34.429820], sanyotsuru:[132.740825,34.429666],
+    southA:[132.744520,34.429850], hakubotan:[132.745133,34.429412], kamotsuru:[132.745402,34.430414], saijotsuru:[132.745620,34.430238],
+    kirei:[132.746323,34.430119], gateWest:[132.746420,34.429850], kugurimon:[132.746796,34.429599], northEast:[132.746350,34.430610],
+    fukubijin:[132.747731,34.430674], eastMid:[132.748150,34.430050], eastSouth:[132.747650,34.429360], kamoizumi:[132.748630,34.429061],
+    "tourist-info-station":[132.743735,34.431120], "sakagura-info":[132.746735,34.429655], "kugurimon-toilet":[132.746875,34.429555],
+    "kugurimon-coffee":[132.746650,34.429565], "historical-square":[132.745350,34.429455], boulevardNorth:[132.743650,34.430050],
+    boulevardMid:[132.743300,34.428650], kurara:[132.7424747,34.4283545], "city-museum":[132.7423088,34.4271133], museumEast:[132.743300,34.427120],
+    cityCenterEast:[132.746050,34.427120], yumeWest:[132.748650,34.427000], "yume-town":[132.7500214,34.4269265]
+  };
+  const EDGES = [
+    ["saijo-station","stationSouth"],["stationSouth","centralWest"],["stationSouth","westA"],["westA","westB"],["westB","westC"],["westC","sanyotsuru"],
+    ["centralWest","kamotsuru"],["centralWest","southA"],["southA","hakubotan"],["kamotsuru","saijotsuru"],["saijotsuru","kirei"],["kirei","gateWest"],
+    ["gateWest","kugurimon"],["hakubotan","kugurimon"],["kamotsuru","northEast"],["northEast","fukubijin"],["fukubijin","eastMid"],["eastMid","kamoizumi"],
+    ["kugurimon","eastSouth"],["eastSouth","kamoizumi"],["saijo-station","tourist-info-station"],["kugurimon","sakagura-info"],["kugurimon","kugurimon-toilet"],
+    ["kugurimon","kugurimon-coffee"],["hakubotan","historical-square"],["stationSouth","boulevardNorth"],["boulevardNorth","boulevardMid"],["boulevardMid","kurara"],
+    ["kurara","city-museum"],["city-museum","museumEast"],["museumEast","cityCenterEast"],["cityCenterEast","yumeWest"],["yumeWest","yume-town"]
+  ];
+  const LABELS = {"saijo-station":"JR",sanyotsuru:"1",hakubotan:"2",saijotsuru:"3",kamotsuru:"4",kirei:"5",fukubijin:"6",kamoizumi:"7",kugurimon:"門",kurara:"文","city-museum":"美","yume-town":"買","sakagura-info":"案"};
+
+  function metres(a,b){
+    const R=6371000, r=Math.PI/180, dLat=(b[1]-a[1])*r, dLng=(b[0]-a[0])*r;
+    const q=Math.sin(dLat/2)**2+Math.cos(a[1]*r)*Math.cos(b[1]*r)*Math.sin(dLng/2)**2;
+    return 2*R*Math.atan2(Math.sqrt(q),Math.sqrt(1-q));
+  }
+  function shortest(start,end){
+    if(!NODES[start]||!NODES[end]) return null;
+    const graph={}; Object.keys(NODES).forEach(k=>graph[k]=[]);
+    EDGES.forEach(([a,b])=>{const w=metres(NODES[a],NODES[b]);graph[a].push([b,w]);graph[b].push([a,w])});
+    const dist={},prev={},todo=new Set(Object.keys(NODES)); Object.keys(NODES).forEach(k=>dist[k]=Infinity);dist[start]=0;
+    while(todo.size){let u=null,best=Infinity;for(const k of todo){if(dist[k]<best){best=dist[k];u=k}}if(u===null)break;todo.delete(u);if(u===end)break;
+      for(const [v,w] of graph[u]){if(!todo.has(v))continue;const alt=dist[u]+w;if(alt<dist[v]){dist[v]=alt;prev[v]=u}}}
+    if(!Number.isFinite(dist[end])) return null;
+    const ids=[];for(let u=end;u;u=prev[u]){ids.push(u);if(u===start)break}ids.reverse();
+    return ids.map(id=>NODES[id]);
+  }
+  function marker(label,kind){const el=document.createElement("div");el.className=`mini-marker ${kind||""}`;el.textContent=label;return el}
+  function boundsOf(coords){const b=new maplibregl.LngLatBounds();coords.forEach(c=>b.extend(c));return b}
+  function waitForSize(map){
+    let count=0; const tick=()=>{map.resize(); if(++count<8) requestAnimationFrame(tick)}; requestAnimationFrame(tick);
+    if("ResizeObserver" in window){new ResizeObserver(()=>map.resize()).observe(document.body)}
+  }
+
+  const params=new URLSearchParams(location.search);
+  const from=params.get("from")||"saijo-station";
+  const to=params.get("to")||params.get("place")||"kamotsuru";
+  const route=params.get("from")||params.get("to") ? shortest(from,to) : null;
+  const focus=NODES[to]||NODES["kamotsuru"];
+  const map=new maplibregl.Map({container:"miniMap",style:STYLE,center:focus,zoom:16.8,pitch:0,bearing:0,interactive:false,attributionControl:false,fadeDuration:0});
+  waitForSize(map);
+  map.on("load",()=>{
+    if(route&&route.length>1){
+      map.addSource("mini-route",{type:"geojson",data:{type:"Feature",properties:{},geometry:{type:"LineString",coordinates:route}}});
+      map.addLayer({id:"mini-route-casing",type:"line",source:"mini-route",paint:{"line-color":"#ffffff","line-width":9,"line-opacity":.96}});
+      map.addLayer({id:"mini-route-line",type:"line",source:"mini-route",paint:{"line-color":"#006fbf","line-width":5.5,"line-opacity":1}});
+      new maplibregl.Marker({element:marker(LABELS[from]||"START")}).setLngLat(NODES[from]).addTo(map);
+      new maplibregl.Marker({element:marker(LABELS[to]||"●","destination")}).setLngLat(NODES[to]).addTo(map);
+      map.fitBounds(boundsOf(route),{padding:{top:34,right:38,bottom:34,left:38},duration:0,maxZoom:17.7});
+    }else{
+      new maplibregl.Marker({element:marker(LABELS[to]||"●","destination")}).setLngLat(focus).addTo(map);
+      map.jumpTo({center:focus,zoom:17.1});
+    }
+    map.resize();
+  });
+  map.on("styledata",()=>map.resize());
+})();
+
+
+(() => {
+  'use strict';
+
+  const ROOT = 'audio/ui/';
+  const SOURCES = {
+    open: ROOT + 'site-open.mp3',
+    tap: ROOT + 'tap.mp3',
+    page: ROOT + 'page-transition.mp3'
+  };
+
+  const makeAudio = (src, volume) => {
+    const audio = new Audio(src);
+    audio.preload = 'auto';
+    audio.volume = volume;
+    return audio;
+  };
+
+  const sounds = {
+    open: makeAudio(SOURCES.open, 0.58),
+    tap: makeAudio(SOURCES.tap, 0.46),
+    page: makeAudio(SOURCES.page, 0.56)
+  };
+
+  let openingPending = document.body?.dataset.page === 'home';
+  let suppressNextClickSound = false;
+  let navigating = false;
+
+  const replay = (audio) => {
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+      const result = audio.play();
+      if (result && typeof result.catch === 'function') result.catch(() => {});
+    } catch (_) {}
+  };
+
+  const tryOpeningSound = () => {
+    if (!openingPending) return;
+    openingPending = false;
+    try {
+      sounds.open.currentTime = 0;
+      const p = sounds.open.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => { openingPending = true; });
+      }
+    } catch (_) {
+      openingPending = true;
+    }
+  };
+
+  // Browsers often block autoplay. Try once on load, then replay on the
+  // first real user interaction if it was blocked.
+  if (document.body?.dataset.page === 'home') {
+    window.setTimeout(tryOpeningSound, 120);
+
+    const unlockOpening = () => {
+      if (!openingPending) return;
+      suppressNextClickSound = true;
+      tryOpeningSound();
+    };
+    window.addEventListener('pointerdown', unlockOpening, { capture: true, once: true });
+    window.addEventListener('keydown', unlockOpening, { capture: true, once: true });
+  }
+
+  const isInternalNavigation = (anchor) => {
+    if (!anchor || !anchor.href) return false;
+    if (anchor.hasAttribute('download')) return false;
+    if (anchor.target && anchor.target !== '_self') return false;
+
+    const raw = anchor.getAttribute('href') || '';
+    if (!raw || raw.startsWith('#') || raw.startsWith('javascript:') || raw.startsWith('mailto:') || raw.startsWith('tel:')) return false;
+
+    try {
+      const url = new URL(anchor.href, location.href);
+      if (url.protocol === 'http:' || url.protocol === 'https:') {
+        return url.origin === location.origin;
+      }
+      return url.protocol === location.protocol;
+    } catch (_) {
+      return false;
+    }
+  };
+
+  document.addEventListener('click', (event) => {
+    if (!event.isTrusted) return;
+
+    if (suppressNextClickSound) {
+      suppressNextClickSound = false;
+      return;
+    }
+
+    const anchor = event.target.closest('a[href]');
+    if (anchor) {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      if (isInternalNavigation(anchor) && !navigating) {
+        event.preventDefault();
+        navigating = true;
+        replay(sounds.page);
+        const href = anchor.href;
+        // The supplied transition sound starts immediately; the longer delay also lets
+        // the seven-strip brewery transition become visually legible.
+        window.setTimeout(() => { location.href = href; }, 540);
+      } else {
+        replay(sounds.tap);
+      }
+      return;
+    }
+
+    const interactive = event.target.closest(
+      'button, [role="button"], input, select, textarea, summary, .place-marker, .maplibregl-marker'
+    );
+    if (interactive && !interactive.disabled && interactive.getAttribute('aria-disabled') !== 'true') {
+      replay(sounds.tap);
+    }
+  }, true);
+
+  // Expose a tiny API for future map/site actions that are triggered from JS.
+  window.SaijoUISounds = Object.freeze({
+    tap: () => replay(sounds.tap),
+    page: () => replay(sounds.page),
+    open: () => replay(sounds.open)
+  });
+})();
+
+</script>
+  <script src="compact-ui.js?v=72"></script>
+</body>
+</html>
